@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: task_management
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - '3306:3306'
+
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DB_HOST: localhost
+      DB_NAME: task_management
+      DB_USER: root
+      DB_PASSWORD: root
+      JWT_SECRET: my_token_key
+    depends_on:
+      - db
